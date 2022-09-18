@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="tr.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+        <script>
+            function setContent(value){
+                let load = document.getElementsByClassName('cont')[0];
+                load.classList.add(value);
+                load.classList = '';
+                load.classList.add('cont');
+                load.classList.add('loading'+value[7])
+                load.classList.add(value);
+            }
+            
+
+        </script>
+        <script src="tr.js"></script>
+    </head>
+    <body onload="addPropertyDivs();adapt()" onresize="adapt()">
+        <div class="control" id="control">
+            <div class="controlHeader">
+                <select class="form-select" onchange="setContent(this.value)">
+                    <option value="loading11">Loading 11</option>
+                    <option value="loading12">Loading 12</option>
+                    <option value="loading21">Loading 21</option>
+                    <option value="loading22">Loading 22</option>
+                    <option value="l11">Loading 11</option>
+                </select>
+                <input type="text" class="form-control" style="display: block;" placeholder="Find Property" onchange="gotoProperty(this.value)">
+            </div>
+            <div id="propC">
+                
+            </div>
+        </div>
+        <div class="contContainer" id="contContainer">
+            <div class="cont loading1 loading11">
+
+            </div>
+        </div>
+        
+    </body>
+</html>

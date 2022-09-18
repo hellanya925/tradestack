@@ -1,0 +1,216 @@
+@keyframes loading {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+html,body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+}
+.row{
+    margin: 5vw;
+}
+.plistItem{
+    transition-duration: 1s;
+    border: 2px solid rgb(0, 114, 179);
+    box-shadow: 1px 1px 10px gray;
+    cursor:pointer;
+    text-align: center;
+}
+.sellTools{
+    overflow: hidden;
+}
+.arrow{
+    text-align: center;
+    font-weight: bolder;
+    color: rgb(104, 171, 104) !important;
+}
+.header{
+    margin-bottom: 20px;
+}
+.visited{
+    border-bottom: 5px solid green;
+}
+.notif{
+    background-color: hsl(0, 0%, 66%);
+    position: fixed;
+    font-weight: bolder;
+    text-align: center;
+    padding: 2vw;
+    right: 1vw;
+    left: 1vw;
+    height: 8vh;
+    bottom: 1vw;
+    opacity: 0%;
+    border-radius: 10px;
+    transition-duration: 0.5s;
+}
+.navb{
+    overflow: hidden;
+    z-index: 100;
+    text-align: center;
+}
+.closenav{
+    float: right;
+    background-color: transparent;
+    border: none;
+    display: none;
+}
+.navb a{
+    text-decoration: none;
+    color: gray;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+.rowtitle{
+    border-bottom: 1px ridge gray;
+    font-weight: bolder;
+    color: rgb(87, 87, 87);
+}
+.sitename{
+    text-align: center;
+}
+.sitename img{
+    margin: 30px;
+}
+#khod_latest_rates{
+    padding: 0px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+#footerp{
+    color: rgb(0, 255, 255);
+    font-weight: bolder;
+}
+.sitenameFooter{
+    color: lightgreen;
+}
+footer a{
+    text-decoration: none;
+    color: rgb(0, 255, 255);
+}
+footer{
+    background-color: rgb(58, 58, 58);
+    color: white;
+    padding: 2vw;
+    background-image: url('../img/pexels-alexey-demidov-11224492.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.contactLinks{
+    cursor: pointer;
+    transition-duration: .1s;
+    margin: 5px;
+    padding: 1vw;
+    color: rgb(0, 229, 255);
+}
+.contactLinks:hover{
+    transform: scale(2);
+}
+footer div{
+    text-align: center;
+}
+footer div ul{
+    overflow: hidden;
+}
+footer div ul li{
+    overflow: hidden;
+}
+.productIcon{
+    width: 50%;
+}
+.t1{
+    text-align: center;
+}
+.income{
+    font-weight: bold;
+    color:#02d026 !important;;
+}
+.expense{
+    font-weight: bold;
+    color: #ff5151 !important;
+}
+#navicon{
+    background-color: transparent;
+    border: none;
+    display: none;
+}
+.btn{
+    float: right;
+}
+#tr{
+    text-align: center;
+}
+.loadingContainer{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loading{
+    border: 6px solid silver;
+    border-top: 6px solid #02d026;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    animation-name: loading;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
+@media screen and (max-width:350px){
+    .btn{
+        width: 100%;
+    }
+    .navb{
+        background-color: lightgreen;
+        transition-duration: .1s;
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        bottom: 0px;
+        right: 100%;
+    }
+    .navb a{
+        text-align: center;
+        display: block;
+    }
+    .closenav{
+        display: block;
+        float: right;
+    }
+    .closenavc{
+        display: block;
+        overflow: hidden;
+    }
+    #navicon, .sitename img{
+        display: inline;
+        float:left;
+    }
+
+    .sitename{
+        text-align: unset;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sitename img{
+        content: url('../img/logo/profile.png');
+        height: 150px;
+        padding: 0px;
+        float: right;
+        margin: 0px;
+    }
+    .arrow{
+        display: none;
+    }
+}
+@media only screen and(min-width: 320px) and (max-width:480px) {
+    
+}

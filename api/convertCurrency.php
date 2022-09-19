@@ -11,22 +11,24 @@ $currencies = array('ALL','AFN','ARS','AWG',
 'SWD','BR','NZD','CYN','QR',
 'KWON','NT','BHD','TB','SR','PHP','INR');
 $date = date('o-n-j H:i:s');
-if(isset($_REQUEST['from'])){
+if(isset($_REQUEST['from']) && isset($_REQUEST['to'])){
     $from = $_REQUEST['from'];
     $to = $_REQUEST['to'];
-    $cl = curl_init("https://www.xe.com/api/protected/statistics/?from=$from&to=$to");
+    $dayNumber = intval(date('j'));
+    $start = date('Y-m-'.($dayNumber-1));
+    $today = date('Y-m-j');
+    $cl = curl_init("https://cc-api.oanda.com/cc-api/v1/currencies?base=".$from."&quote=".$to."&data_type=chart&start_date=".$start."&end_date=".$today);
     curl_setopt($cl, CURLOPT_SSL_VERIFYHOST, false);
     curl_setopt($cl, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($cl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($cl,CURLOPT_HTTPHEADER,array(
-        "authorization: Basic bG9kZXN0YXI6S2QxaWI1QloySzdFQzRNSWd5RUJRRWRCZmVaaHVyd2w="
-    ));
     $data = curl_exec($cl);
     $data = json_decode($data,true);
-    $low = $data['last30Days']['low'];
-    $high = $data['last30Days']['high'];
-    $date = $data['last30Days']['lowestTimeStamp'];
-    echo $date;
+    $low = $data['response'][0]['low_bid'];
+    $high = $data['response'][0]['high_bid'];
+    echo "{
+        low:$low,
+        high:$high
+    }";
     exit;
 }
 

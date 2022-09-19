@@ -27,7 +27,7 @@ while($row = mysqli_fetch_assoc($res)){
     $sMonth = date('m',$sdate);
     $sYear = date('o',$sdate);
     if($sday === $thisDay){
-        $de += intval($row['price'])*intval($row['quantity']);
+        $de += floatval($row['price'])*intval($row['quantity']);
         $ds += intval($row['quantity']);
     }
     if($sWeek === $thisWeek && $sYear === $thisYear){
@@ -235,7 +235,7 @@ while($row = mysqli_fetch_assoc($res)){
                             </div>
                         </div>
                         <div class="col-12 d-flex">
-                            <input type="number" class="col-8 earningsInp w-50 form-control" min="0" value="<?php echo $de;?>" disabled>
+                            <input type="text" class="col-8 earningsInp w-50 form-control" value="<?php echo $de;?>" disabled>
                             <select type="text" class="form-select w-50" onmousedown="localStorage.setItem('earningsoldcur',this.value)" onchange="setPriceFilter(this,this.parentNode.children[0],localStorage.getItem('earningsoldcur'))">
                                 <option value="USD" selected>USD</option>
                                 <option value="sayrafa">LBP (Sayrafa)</option>

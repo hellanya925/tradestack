@@ -84,7 +84,7 @@ function addP(){
     }
     xtp.send();
 }
-function getEarnings(date1,date2){
+async function getEarnings(date1,date2){
     let dat = new Date(date1),
     y1 = dat.getFullYear(),
     m1 = dat.getMonth()+1,
@@ -93,13 +93,25 @@ function getEarnings(date1,date2){
     y2 = dat.getFullYear(),
     m2 = dat.getMonth()+1,
     d2 = dat.getDate();
-    xtp.open('get','../api/getEarnings.php?y1='+y1+'&m1='+m1+'&d1='+d1+'&y2='+y2+'&m2='+m2+'&d2='+d2,false);
+    await fetch('../api/getEarnings.php?y1='+y1+'&m1='+m1+'&d1='+d1+'&y2='+y2+'&m2='+m2+'&d2='+d2,{
+            method: "GET",
+            headers:{
+                'X-Requested-With': "XMLHttpRequest"
+            }
+        }).then((response) => {
+            return response.json();
+        }).then((response) => {
+            earnings = JSON.stringify(response)
+            console.log(earnings)
+        });
+    
+    /*xtp.open('get','../api/getEarnings.php?y1='+y1+'&m1='+m1+'&d1='+d1+'&y2='+y2+'&m2='+m2+'&d2='+d2,false);
     xtp.onreadystatechange = () => {
         if(xtp.readyState == 4 && xtp.status == 200){
                 earnings = xtp.responseText;
         }
     }
-    xtp.send();
+    xtp.send();*/
 }
 function load(object){
     object.innerHTML = '<h5>Loading Prices</h5><div class="loadingContainer"><p class="loading"></p></div>';
@@ -114,9 +126,7 @@ function sellP(object){
     let avq = selltools.parentNode.children[2].children[1].value,
     quantity = selltools.children[0].value,
     price = selltools.children[1].value,
-    oldcur = localStorage.getItem('oldcur');
-    price = convertPrice(price,oldcur,'USD');
-    let earningsI = document.getElementsByClassName('earningsInp')[0],
+    earningsI = document.getElementsByClassName('earningsInp')[0],
     sales = document.getElementsByClassName('salesInp')[0];
     if(parseInt(quantity) > parseInt(avq)){
         notify('quantity not available','red');
@@ -146,7 +156,6 @@ function sellP(object){
                 netI = document.getElementsByClassName('net')[0],
                 expenses = parseFloat(document.getElementsByClassName('expense')[0].innerText),
                 net = (parseFloat(income.innerText)+parseFloat(price*quantity)) - expenses;
-                console.log(expenses)
                 income.innerText = (parseFloat(income.innerText)+parseFloat(price*quantity))+' USD';
                 if(net >= 0){
                     netI.innerHTML = `<span style="color: #02d026 !important;">${net} USD</span>`
@@ -156,6 +165,7 @@ function sellP(object){
                 notify('product sold','green');
             }else{
                 console.log(xtp.responseText);
+                notify('internal error','red');
             }
         }
     }
@@ -187,25 +197,26 @@ function addNewCategory(){
     }
     xtp.send(formdata);
 }
-function setEarningFilter(date1,date2){
+async function setEarningFilter(date1,date2){
     if((new Date(date1)).valueOf() > (new Date(date2)).valueOf()){
         let temp = date1;
         date1 = date2;
         date2 = temp;
     }
     let inp = document.getElementsByClassName('earningsInp')[0];
-    getEarnings(date1,date2);
+    //getEarnings(date1,date2);
+    await getEarnings(date1,date2);
     let js = JSON.parse(earnings);
     inp.value = js['earnings'];
 }
-function setSalesFilter(date1,date2){
+async function setSalesFilter(date1,date2){
     let inp = document.getElementsByClassName('salesInp')[0];
     if((new Date(date1)).valueOf() > (new Date(date2)).valueOf()){
         let temp = date1;
         date1 = date2;
         date2 = temp;
     }
-    getEarnings(date1,date2);
+    await getEarnings(date1,date2);
     let js = JSON.parse(earnings);
     inp.value = js['sales'];
 }
@@ -221,9 +232,9 @@ function showSellTool(object){
     }
     localStorage.setItem('id',object.children[object.children.length-1].value);
     let sellTools = `
-    <div class="row mt-5 p-3 sellTools d-flex">
+    <div class="row mt-5 p-3 sellTools d-flex" onmousedown="localStorage.setItem('sellcur',this.children[2].value)">
         <input type="number" class="col-lg-6 form-control" min='1' placeholder="quantity">
-        <input type="number" class="col-lg-3 form-control" step="0.01" min='1' placeholder="sale price">
+        <input type="number" class="col-lg-3 form-control" step="0.01" min='0' placeholder="sale price">
         <select type="text" class="form-select col-lg-3" onmousedown="localStorage.setItem('selloldcur',this.value)" onmouseup="localStorage.setItem('sellcur',this.value)" onchange="setPriceFilter(this,this.parentNode.children[1],localStorage.getItem('selloldcur'))">
             <option value="USD" selected>USD</option>
             <option value="sayrafa">LBP (Sayrafa)</option>
@@ -238,6 +249,7 @@ function showSellTool(object){
 
 }
 function convertPrice(price,oldcur,newcur){
+    console.log(price)
     let bmprice = parseInt(document.getElementsByClassName('bm')[0].value),
     sprice = parseInt(document.getElementsByClassName('sayrafa')[0].value),
     omtprice = parseInt(document.getElementsByClassName('omt')[0].value);

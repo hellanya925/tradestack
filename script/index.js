@@ -19,6 +19,32 @@ function getProductImage(pname){
     xtp.send();
     return image;
 }
+async function getLiraRate(){
+    await fetch('../api/tr.php',{
+        method: 'GET',
+        headers:{
+            'X-Requested-With': "XMLHttpRequest"
+        }
+    }).then((response)=>{
+            return response.json();
+    }).then((data)=>{
+        data = JSON.parse(JSON.stringify(data));
+        let rateC = document.getElementById('khod_latest_rates');
+        rateC.innerHTML = `<div class="col">
+                            <p>Black Market</p>
+                            <input type='text' class="form-control" disabled value="${data['bm']}">
+                        </div>
+                        <div class="col">
+                            <p>Sayrafa</p>
+                            <input type='text' class="form-control" disabled value="${data['sayrafa']}">
+                        </div>
+                        <div class="col">
+                            <p>OMT</p>
+                            <input type='text' class="form-control" disabled value="36000">
+                        </div>`
+        });
+}
+
 function addP(){
     let oldcur = localStorage.getItem('showcur');
     let pform = document.getElementById('pform'),

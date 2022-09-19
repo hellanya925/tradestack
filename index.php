@@ -59,7 +59,7 @@ while($row = mysqli_fetch_assoc($res)){
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="./script/index.js"></script>
     </head>
-    <body>
+    <body onload="getLiraRate()">
         <div class="header">
             <div class="sitename">
             <button onclick="shownav()" id="navicon">

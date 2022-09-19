@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script type="text/javascript" src="./script/market.js"></script>
     </head>
-    <body>
+    <body onload="setRate(1,'AUD','AUD');setContent()">
         <div class="header">
             <div class="sitename">
             <button onclick="shownav()" id="navicon">
@@ -34,18 +34,24 @@
             <div class="row d-flex justify-content-center align-items-center">
                 <p>Convert Currency</p>
                 <div class="col col-lg-5 d-flex justify-content-center align-items-center" id="leftConverterContainer">
-                    <input type="number" class="form-control w-75" id="leftQ">
-                    <select class="form-select w-25" id="leftCur">
+                    <input type="number" class="form-control w-75" min="0" value="1" step="0.01" id="leftQ">
+                    <select class="form-select w-25" id="leftCur" onchange="setRate(document.getElementById('leftQ').value,
+                    document.getElementById('leftCur').value,
+                    document.getElementById('rightCur').value)">
                         <option value="USD">USD</option>
+                        <option value="LBP">LBP</option>
                     </select>
                 </div>
                 <div class="col col-lg-2 d-flex justify-content-center align-items-center">
                     <i style="cursor: pointer;" onmouseup="switchConverter()" class="fa fa-refresh text-warning"></i>
                 </div>
                 <div class="col col-lg-5 d-flex justify-content-center align-items-center" id="rightConverterContainer">
-                    <input type="number" class="form-control w-75" id="rightQ">
-                    <select class="form-select w-25" id="rightCur">
+                    <input type="number" class="form-control w-75" step="0.01" id="rightQ">
+                    <select class="form-select w-25" id="rightCur" onchange="setRate(document.getElementById('leftQ').value,
+                    document.getElementById('leftCur').value,
+                    document.getElementById('rightCur').value)">
                         <option value="USD">USD</option>
+                        <option value="LBP">LBP</option>
                     </select>   
                 </div>
                 

@@ -3,6 +3,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="tr.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script>
             function setContent(value){
                 let load = document.getElementsByClassName('cont')[0];
@@ -12,14 +13,13 @@
                 load.classList.add('loading'+value[7])
                 load.classList.add(value);
             }
-            
-
         </script>
         <script src="tr.js"></script>
     </head>
     <body onload="addPropertyDivs();adapt()" onresize="adapt()">
         <div class="control" id="control">
             <div class="controlHeader">
+                <p>Widget Builder</p>
                 <select class="form-select" onchange="setContent(this.value)">
                     <option value="loading11">Loading 11</option>
                     <option value="loading12">Loading 12</option>
@@ -27,17 +27,23 @@
                     <option value="loading22">Loading 22</option>
                     <option value="l11">Loading 11</option>
                 </select>
-                <input type="text" class="form-control" style="display: block;" placeholder="Find Property" onchange="gotoProperty(this.value)">
-            </div>
-            <div id="propC">
+                <div class="input-group d-flex justify-content-center flex-nowrap">
+                        <input type="text" id="findP" aria-describedby="basic" class="form-control" style="display: block;" placeholder="Find Property" onchange="gotoProperty(this.value)">
+                        <span class="input-group-text" style="cursor: pointer;" id="basic">
+                            <i class="fa fa-search"></i>
+                        </span>
+                        
+                </div>
+                
                 
             </div>
+            <div id="propC"></div>
         </div>
         <div class="contContainer" id="contContainer">
-            <div class="cont loading1 loading11">
-
-            </div>
+            <div class="cont loading1 loading11"></div>
         </div>
-        
+        <div class="codeContainer" id="codeContainer">
+            <textarea id="code" class="form-control" onkeyup="setContent()"></textarea>
+        </div>
     </body>
 </html>

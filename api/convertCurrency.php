@@ -22,13 +22,14 @@ if(isset($_REQUEST['from']) && isset($_REQUEST['to'])){
     curl_setopt($cl, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($cl, CURLOPT_RETURNTRANSFER, true);
     $data = curl_exec($cl);
+    curl_close($cl);
     $data = json_decode($data,true);
     $low = $data['response'][0]['low_bid'];
     $high = $data['response'][0]['high_bid'];
-    echo "{
-        low:$low,
-        high:$high
-    }";
+    echo '{
+        "low":'.$low.',
+        "high":'.$high.'
+    }';
     exit;
 }
 

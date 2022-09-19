@@ -599,10 +599,18 @@ function gotoProperty(value){
 }
 function adapt(){
     let rightC = document.getElementById('contContainer'),
-    leftC = document.getElementById('control');
+    leftC = document.getElementById('control'),
+    codeC = document.getElementById('codeContainer'),
+    code = document.getElementById('code');
     let wid = leftC.getBoundingClientRect().width;
-    rightC.style.width = (window.innerWidth - wid)+'px';
-    console.log((window.innerWidth))
+    rightC.style.width = codeC.style.width = (window.innerWidth - wid)+'px';
+    code.innerText = rightC.innerHTML;
+    console.log((window.innerWidth));
+}
+function setContent(){
+    let rightC = document.getElementById('contContainer'),
+    code = document.getElementById('code');
+    rightC.innerHTML = code.value;
 }
 function setProperty(property,value){
     let load = document.getElementsByClassName('cont')[0];

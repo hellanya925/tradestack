@@ -20,6 +20,21 @@ html, body{
     margin: 0px;
     box-sizing: border-box;
 }
+.codeContainer{
+    background-color: gray;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1vw;
+}
+#code{
+    width: 80%;
+    padding: 0;
+}
 .controlHeader{
     position: sticky;
     top: 0;

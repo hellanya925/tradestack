@@ -47,12 +47,10 @@ async function getLiraRate(){
 
 function addP(){
     let oldcur = localStorage.getItem('showcur');
-    console.log(oldcur);
     let pform = document.getElementById('pform'),
     plist = document.getElementById('plist'),
     pname = pform.children[1],
     pprice = pform.children[3].children[0];
-    console.log(pprice.value);
     quantity = pform.children[2].children[0].value;
     if(pname.value === null || pname.value == "" || pprice.value == null || pprice.value == 0 || quantity == null || quantity == 0){
         return;

@@ -116,7 +116,7 @@ while($row = mysqli_fetch_assoc($res)){
                         </div>
                         <div class="col-12 d-flex">
                             <input type="text" class="col-8 earningsInp w-50 form-control" value="<?php echo $de;?>" disabled>
-                            <select type="text" class="form-select w-50" onmousedown="localStorage.setItem('earningsoldcur',this.value)" onchange="setPriceFilter(this,this.parentNode.children[0],localStorage.getItem('earningsoldcur'))">
+                            <select type="text" class="form-select w-50" onmousedown="localStorage.setItem('earningsoldcur',this.value)" onchange="this.blur();setPriceFilter(this,this.parentNode.children[0],localStorage.getItem('earningsoldcur'))">
                                 <option value="USD" selected>USD</option>
                                 <option value="sayrafa">LBP (Sayrafa)</option>
                                 <option value="bm">LBP (Black Market)</option>
@@ -159,8 +159,8 @@ while($row = mysqli_fetch_assoc($res)){
                         <input class="form-control" type="number" min="1" required placeholder="Quantity">
                     </div>
                     <div class="col d-flex">
-                        <input type="number" class="col-8 form-control w-50" min="0" placeholder="Price" onmousedown="localStorage.setItem('showcur',this.parentNode.children[1].value)">
-                        <select type="text" class="form-select w-50" onmousedown="localStorage.setItem('addoldcur',this.value)" onchange="setPriceFilter(this,this.parentNode.children[0],localStorage.getItem('addoldcur'));localStorage.setItem('showcur',this.value);">
+                        <input type="number" class="col-8 form-control w-50" min="0" placeholder="Price" onclick="localStorage.setItem('showcur',this.parentNode.children[1].value)">
+                        <select type="text" class="form-select w-50" onclick="localStorage.setItem('addoldcur',this.value)" onchange="this.blur();setPriceFilter(this,this.parentNode.children[0],localStorage.getItem('addoldcur'));localStorage.setItem('showcur',this.value);">
                             <option value="USD" selected>USD</option>
                             <option value="sayrafa">LBP (Sayrafa)</option>
                             <option value="bm">LBP (Black Market)</option>
@@ -200,7 +200,7 @@ while($row = mysqli_fetch_assoc($res)){
                                         <input type="text" class="form-control" style="float:left" disabled value='.$products[$i][4].'>
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 p-0 m-0">
-                                    <select type="text" class="form-select" onmousedown=localStorage.setItem("showoldcur",this.value) onchange="setPriceFilter(this,this.parentNode.parentNode.children[1].children[0],localStorage.getItem(\'showoldcur\'))">
+                                    <select type="text" class="form-select" onmousedown=localStorage.setItem("showoldcur",this.value) onchange="this.blur();setPriceFilter(this,this.parentNode.parentNode.children[1].children[0],localStorage.getItem(\'showoldcur\'))">
                                         <option value="USD" selected>USD</option>
                                         <option value="sayrafa">LBP (Sayrafa)</option>
                                         <option value="bm">LBP (Black Market)</option>

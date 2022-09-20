@@ -20,7 +20,7 @@ function getProductImage(pname){
     return image;
 }
 async function getLiraRate(){
-    await fetch('../api/tr.php',{
+    fetch('../api/tr.php',{
         method: 'GET',
         headers:{
             'X-Requested-With': "XMLHttpRequest"
@@ -32,25 +32,27 @@ async function getLiraRate(){
         let rateC = document.getElementById('khod_latest_rates');
         rateC.innerHTML = `<div class="col">
                             <p>Black Market</p>
-                            <input type='text' class="form-control" disabled value="${data['bm']}">
+                            <input type='text' class="form-control bm" disabled value="${data['bm']}">
                         </div>
                         <div class="col">
                             <p>Sayrafa</p>
-                            <input type='text' class="form-control" disabled value="${data['sayrafa']}">
+                            <input type='text' class="form-control sayrafa" disabled value="${data['sayrafa']}">
                         </div>
                         <div class="col">
                             <p>OMT</p>
-                            <input type='text' class="form-control" disabled value="36000">
+                            <input type='text' class="form-control omt" disabled value="36000">
                         </div>`
         });
 }
 
 function addP(){
     let oldcur = localStorage.getItem('showcur');
+    console.log(oldcur);
     let pform = document.getElementById('pform'),
     plist = document.getElementById('plist'),
     pname = pform.children[1],
     pprice = pform.children[3].children[0];
+    console.log(pprice.value);
     quantity = pform.children[2].children[0].value;
     if(pname.value === null || pname.value == "" || pprice.value == null || pprice.value == 0 || quantity == null || quantity == 0){
         return;
@@ -98,7 +100,7 @@ function addP(){
             net -= parseFloat(convertPrice(pprice.value,oldcur,'USD')*quantity);
             netI.innerText = net+' USD';
             income.innerHTML = (parseFloat(income.innerText)+parseFloat(convertPrice(pprice.value,oldcur,'USD')*quantity))+" USD";
-                if(plist.children.length == 2){
+                if(plist.children[1].tagName == 'p'){
                     plist.children[1].outerHTML = '';
                 }
                 plist.appendChild(node);
@@ -128,7 +130,6 @@ async function getEarnings(date1,date2){
             return response.json();
         }).then((response) => {
             earnings = JSON.stringify(response)
-            console.log(earnings)
         });
     
     /*xtp.open('get','../api/getEarnings.php?y1='+y1+'&m1='+m1+'&d1='+d1+'&y2='+y2+'&m2='+m2+'&d2='+d2,false);
@@ -275,7 +276,6 @@ function showSellTool(object){
 
 }
 function convertPrice(price,oldcur,newcur){
-    console.log(price)
     let bmprice = parseInt(document.getElementsByClassName('bm')[0].value),
     sprice = parseInt(document.getElementsByClassName('sayrafa')[0].value),
     omtprice = parseInt(document.getElementsByClassName('omt')[0].value);
